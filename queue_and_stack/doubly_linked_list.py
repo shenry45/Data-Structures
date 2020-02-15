@@ -69,7 +69,6 @@ class DoublyLinkedList:
         if self.head is None:
             return
         elif self.head == self.tail:
-            ret_val = self.head.value
             self.head = None
             self.tail = None
             self.length -= 1
@@ -77,9 +76,7 @@ class DoublyLinkedList:
             ret_val = self.head.value
             self.delete(self.head)
             self.length -= 1
-
-        return ret_val
-
+            return ret_val
 
     """Wraps the given value in a ListNode and inserts it 
     as the new tail of the list. Don't forget to handle 
@@ -103,7 +100,6 @@ class DoublyLinkedList:
         if self.head is None and self.tail is None:
             return
         elif self.tail == self.head:
-            return_val = self.tail.value
             self.head = None
             self.tail = None
             self.length -= 1
@@ -111,8 +107,7 @@ class DoublyLinkedList:
             return_val = self.tail.value
             self.delete(self.tail)
             self.length -= 1
-        
-        return return_val
+            return return_val
 
     """Removes the input node from its current spot in the 
     List and inserts it as the new head node of the List."""
