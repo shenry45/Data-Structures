@@ -10,12 +10,18 @@ class Stack:
 
     # adding to top of stack
     def push(self, value):
-        self.storage.add_to_head(value)
+        self.storage.add_to_tail(value)
         self.size += 1
 
     # remove from top of stack
     def pop(self):
-        self.storage.remove_from_head()
+        if self.size == 0:
+            return
+        else:
+            self.size -= 1
+            current_tail = self.storage.tail.value
+            self.storage.remove_from_tail()
+            return current_tail
 
     def len(self):
         return self.size
