@@ -53,8 +53,6 @@ class DoublyLinkedList:
     the old head node's previous pointer accordingly."""
     def add_to_head(self, value):
         if self.length > 0:
-            print(self.head)
-            print('\n\n')
             self.head.insert_before(value)
             self.head = self.head.prev
             
@@ -151,4 +149,21 @@ class DoublyLinkedList:
         
     """Returns the highest value currently in the list"""
     def get_max(self):
-        pass
+        if self.head is None:
+            return
+        elif self.head == self.tail:
+            return self.head.value
+        else:
+            def check_numb(node, current_max):
+                if node is None:
+                    return current_max
+                else:
+                    if current_max < node.value:
+                        current_max = node.value
+
+                    return check_numb(node.next, current_max)
+
+
+            return check_numb(self.head.next, self.head.value)
+
+            # return current_max
