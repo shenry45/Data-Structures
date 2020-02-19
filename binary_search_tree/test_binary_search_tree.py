@@ -46,6 +46,7 @@ class BinarySearchTreeTests(unittest.TestCase):
         v3 = random.randint(1, 101)
         v4 = random.randint(1, 101)
         v5 = random.randint(1, 101)
+        print(v1,v2,v3,v4,v5)
 
         self.bst.insert(v1)
         self.bst.insert(v2)
@@ -53,7 +54,10 @@ class BinarySearchTreeTests(unittest.TestCase):
         self.bst.insert(v4)
         self.bst.insert(v5)
 
+        print(arr)
         self.bst.for_each(cb)
+        print(arr)
+
 
         self.assertTrue(5 in arr)
         self.assertTrue(v1 in arr)
