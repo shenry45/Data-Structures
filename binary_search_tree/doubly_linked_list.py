@@ -168,3 +168,5 @@ class DoublyLinkedList:
 
 
             return check_numb(self.head.next, self.head.value)
+
+            # return current_max

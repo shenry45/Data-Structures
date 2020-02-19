@@ -1,3 +1,5 @@
+from doubly_linked_list import DoublyLinkedList, ListNode
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +9,10 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        self.limit = limit
+        self.size = 0
+        self.list = DoublyLinkedList()
+        self.storage = {}
 
     """
     Retrieves the value associated with the given key. Also
@@ -17,7 +22,40 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
+        if key in self.storage:
+            node = self.storage[key]
+
+            #MRU at the tail
+            self.list.move_to_end(node)
+
+            return node
+        else:
+            return None
+
+
+        # # key does not exit
+        # if key not in self.storage:
+        #     # return None
+        #     return None
+        # # if key exists
+        # else:
+        #     print(key, self.storage)
+        #     # move pair to end
+
+        #     def findNode(node):
+        #         print(node.value, self.storage[key])
+        #         if node.value is None:
+        #             return
+        #         elif node.value == self.storage[key]:
+        #             return self.list.move_to_end(node)
+        #         else:
+        #             return findNode(node.next)
+
+        #     findNode(self.list.head)
+
+        #     # self.list.move_to_end(self.list[self.storage[key]])
+        #     # get & return pair value
+        #     return self.storage[key]
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -30,4 +68,50 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        # item already in cache
+        if key in self.storage.keys():
+            # get node from {}
+            # update position to MRU
+            self.list.move_to_end(self.storage[key])
+
+        # item needs to be cached
+        else:
+            # still have room in cache
+            if self.size < self.limit:
+                # add to tail MRU
+                self.list.add_to_tail(value)               
+                # add to dict {}
+                self.storage[key] = self.list.tail
+                # increment cache size
+                self.size += 1
+
+            # cache is full
+            else:
+                self.list.remove_from_head()
+                # add to tail MRU
+                self.list.add_to_tail(self.storage[key])
+                # add to dict {}
+                
+        
+
+        # # if key exists
+        # if self.storage[key] is not None:
+        #     self.storage.update({key: value})
+        # # cache not full
+        # elif self.size < self.limit:    
+        #     # add pair to dict
+        #     self.storage.update({key: value})
+        #     # move pair to tail (most recent)
+            
+        #     # self.list.add_to_tail({key: value})
+        #     self.list.add_to_tail(value)
+
+        #     #increment size
+        #     self.size += 1
+        # # cache full
+        # else:
+        #     # delete head (oldest)
+        #     self.list.remove_from_head()
+        #     # add pair to tail
+        #     # self.list.add_to_tail({key: value})
+        #     self.list.add_to_tail(value)
