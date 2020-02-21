@@ -28,7 +28,7 @@ class LRUCache:
             #MRU at the tail
             self.list.move_to_end(node)
 
-            return node
+            return node.value
         else:
             return None
 
@@ -68,30 +68,20 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        # item already in cache
-        if key in self.storage.keys():
-            # get node from {}
-            # update position to MRU
-            self.list.move_to_end(self.storage[key])
-
-        # item needs to be cached
+        if key in self.storage:
+            node = self.storage[key]
+            node.value = value
+            self.list.move_to_end(node)
         else:
-            # still have room in cache
-            if self.size < self.limit:
-                # add to tail MRU
-                self.list.add_to_tail(value)               
-                # add to dict {}
-                self.storage[key] = self.list.tail
-                # increment cache size
-                self.size += 1
-
-            # cache is full
-            else:
+            if len(self.list) == self.limit:
+                for name in self.storage:
+                    if self.storage[name] is self.list.head:
+                        del self.storage[name]
+                        break
                 self.list.remove_from_head()
-                # add to tail MRU
-                self.list.add_to_tail(self.storage[key])
-                # add to dict {}
-                
+            self.list.add_to_tail(value)
+            self.storage[key] = self.list.tail
+        
         
 
         # # if key exists
